@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'styles.dart';
 import 'product_list_tab.dart';
 import 'search_tab.dart';
 import 'shopping_cart_tab.dart';
 
-class CupertinoStoreApp extends StatelessWidget{
-
+class CupertinoStoreApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
@@ -14,7 +12,7 @@ class CupertinoStoreApp extends StatelessWidget{
   }
 }
 
-class CupertinoStoreHomePage extends StatelessWidget{
+class CupertinoStoreHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
@@ -22,20 +20,20 @@ class CupertinoStoreHomePage extends StatelessWidget{
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.home),
-            title: Text("Products")
+            title: Text('Products'),
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.search),
-            title: Text("Search")
+            title: Text('Search'),
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.shopping_cart),
-            title: Text("Cart")
-          )
+            title: Text('Cart'),
+          ),
         ],
       ),
-      tabBuilder: (context, index){
-        switch(index){
+      tabBuilder: (context, index) {
+        switch (index) {
           case 0:
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(
@@ -58,5 +56,4 @@ class CupertinoStoreHomePage extends StatelessWidget{
       },
     );
   }
-
 }
