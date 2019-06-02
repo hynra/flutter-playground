@@ -31,7 +31,7 @@ class ProductRowItem extends StatelessWidget {
               child: Image.asset(
                 product.assetName,
                 package: product.assetPackage,
-                fit: BoxFit.fill,
+                fit: BoxFit.fitWidth,
                 width: 76,
                 height: 76,
               ),
