@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'model/app_state_model.dart';
 import 'model/product.dart';
-import 'styles.dart';
+import 'package:helloworld/cupertiontutor/styles.dart';
 
 class ProductRowItem extends StatelessWidget {
 

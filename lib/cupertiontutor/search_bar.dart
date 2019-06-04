@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
-import 'styles.dart';
+import 'package:helloworld/cupertiontutor/styles.dart';
 
 class SearchBar extends StatelessWidget {
 
