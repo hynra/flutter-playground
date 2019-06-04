@@ -13,11 +13,9 @@ class SearchTab extends StatefulWidget {
 }
 
 class _SearchTabState extends State<SearchTab> {
-
   String _terms = '';
   TextEditingController _controller;
   FocusNode _focusNode;
-
 
   @override
   void initState() {
@@ -26,7 +24,6 @@ class _SearchTabState extends State<SearchTab> {
     _focusNode = FocusNode();
   }
 
-
   @override
   void dispose() {
     _focusNode.dispose();
@@ -34,7 +31,7 @@ class _SearchTabState extends State<SearchTab> {
     super.dispose();
   }
 
-  void _onTextChanged(){
+  void _onTextChanged() {
     setState(() {
       _terms = _controller.text;
     });
@@ -52,25 +49,22 @@ class _SearchTabState extends State<SearchTab> {
 
   @override
   Widget build(BuildContext context) {
-
     final model = Provider.of<AppStateModel>(context);
     final result = model.search(_terms);
 
     return DecoratedBox(
-      decoration: const BoxDecoration(
-        color: Styles.scaffoldBackground
-      ),
+      decoration: const BoxDecoration(color: Styles.scaffoldBackground),
       child: SafeArea(
         child: Column(
           children: <Widget>[
             _buildSearchBox(),
             Expanded(
               child: ListView.builder(
-                itemBuilder: (context, index){
+                itemBuilder: (context, index) {
                   return ProductRowItem(
                     index: index,
                     product: result[index],
-                    lastItem: index == result.length-1,
+                    lastItem: index == result.length - 1,
                   );
                 },
                 itemCount: result.length,
