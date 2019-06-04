@@ -26,7 +26,7 @@ class ChatScreen extends StatefulWidget {
 class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   final TextEditingController _controller = TextEditingController();
   final List<ChatMessage> _messages = <ChatMessage>[];
-
+  bool _isComposing = false;
 
   @override
   void dispose() {
@@ -41,6 +41,7 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         title: Text("Friendlychat"),
+        elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0 : 4,
       ),
       body: Column(
         children: <Widget>[
@@ -76,13 +77,18 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                   onSubmitted: this._handleSubmitted,
                   decoration:
                       InputDecoration.collapsed(hintText: "Send a message"),
+                  onChanged:(String text) {
+                    setState(() {
+                      _isComposing = text.length > 0;
+                    });
+                  },
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 4),
                 child: IconButton(
                     icon: Icon(Icons.send),
-                    onPressed: () => this._handleSubmitted(_controller.text)),
+                    onPressed: _isComposing ? () => this._handleSubmitted(_controller.text) : null),
               )
             ],
           ),
@@ -91,6 +97,9 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 
   void _handleSubmitted(String text) {
     _controller.clear();
+    setState(() {
+      _isComposing = false;
+    });
     AnimationController animationController =
         AnimationController(vsync: this, duration: Duration(microseconds: 700));
     ChatMessage cm =
@@ -125,18 +134,20 @@ class ChatMessage extends StatelessWidget {
                   child: Text(_name[0]),
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    _name,
-                    style: Theme.of(context).textTheme.subhead,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 5),
-                    child: Text(this.text),
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      _name,
+                      style: Theme.of(context).textTheme.subhead,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 5),
+                      child: Text(this.text),
+                    ),
+                  ],
+                ),
               )
             ],
           ),
