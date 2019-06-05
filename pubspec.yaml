@@ -13,6 +13,8 @@ dependencies:
   intl: ^0.15.7
   provider: ^2.0.0+1
   shrine_images: ^1.0.0
+  rxdart: ^0.18.0
+  http: ^0.12.0+1
 
 dev_dependencies:
   flutter_test:
