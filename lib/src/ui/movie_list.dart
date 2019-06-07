@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/item_model.dart';
 import '../blocs/movies_bloc.dart';
 import 'movie_detail.dart';
+import '../blocs/movie_detail_bloc_provider.dart';
 
 class MovieList extends StatefulWidget {
   @override
@@ -47,14 +48,13 @@ class MovieListState extends State<MovieList> {
     return GridView.builder(
         itemCount: snapshot.data.results.length,
         gridDelegate:
-        new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (BuildContext context, int index) {
           return GridTile(
             child: InkResponse(
               enableFeedback: true,
               child: Image.network(
-                'https://image.tmdb.org/t/p/w185${snapshot.data
-                    .results[index].poster_path}',
+                'https://image.tmdb.org/t/p/w185${snapshot.data.results[index].poster_path}',
                 fit: BoxFit.cover,
               ),
               onTap: () => openDetailPage(snapshot.data, index),
@@ -67,13 +67,15 @@ class MovieListState extends State<MovieList> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
-        return MovieDetail(
-          title: data.results[index].title,
-          posterUrl: data.results[index].backdrop_path,
-          description: data.results[index].overview,
-          releaseDate: data.results[index].release_date,
-          voteAverage: data.results[index].vote_average.toString(),
-          movieId: data.results[index].id,
+        return MovieDetailBlocProvider(
+          child: MovieDetail(
+            title: data.results[index].title,
+            posterUrl: data.results[index].backdrop_path,
+            description: data.results[index].overview,
+            releaseDate: data.results[index].release_date,
+            voteAverage: data.results[index].vote_average.toString(),
+            movieId: data.results[index].id,
+          ),
         );
       }),
     );
