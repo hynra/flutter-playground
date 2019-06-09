@@ -7,7 +7,7 @@ abstract class UserService implements Service<User>{}
 
 class UserRestService extends RestServiceBase<User> implements UserService{
 
-  UserRestService(Injector injector, String endPoint) : super(injector, "users");
+  UserRestService(Injector injector) : super(injector, "users");
 
   @override
   User toModel(Map map) {
